@@ -1,0 +1,36 @@
+{
+  "people": [
+    {
+      "id": 1,
+      "name": "velmurugan"
+    },
+    {
+      "id": 2,
+      "name": "Manick"
+    },
+    {
+      "id": 3,
+      "name": "Eswar"
+    },
+    {
+      "id": 4,
+      "name": "Hariprasad"
+    },
+    {
+      "id": 5,
+      "name": "Murugeswar"
+    },
+    {
+      "id": 6,
+      "name": "Vellilingam"
+    },
+    {
+      "id": 7,
+      "name": "Krishna"
+    },
+    {
+      "id": 8,
+      "name": "Prabhu"
+    }
+  ]
+}
