@@ -41,6 +41,19 @@ angular.module('myApp.profile.services',[]).factory('profileService',['$http',fu
 			     alert('error');
 			  });
 			return deletePromise;
+       },
+        updateUser:function(user){
+         var updatePromise = $http({
+			  method: 'PUT',
+			  url: 'http://localhost:3000/people/'+ user.id,
+			  data:user
+			}).then(function successCallback(response) {
+				 console.log(JSON.stringify(response.data));
+			     return response.data;
+			  }, function errorCallback(response) {
+			     alert('error');
+			  });
+			return updatePromise;
        }
 
    };
@@ -55,17 +68,34 @@ controller('ProfileController',['$scope','profileService', function($scope,profi
 	};
 		$scope.addUser = function(user){
 			console.log(user);
-			profileService.addUser(user).then(function(data){
+			if($scope.update){
+
+			profileService.updateUser(user).then(function(data){
 				$scope.resetUser();
 				$scope.listUsers();
+				$scope.update=false;
+				$scope.message=user.name+ " is updated successfully !";
 		})
+			}else{
+				
+				profileService.addUser(user).then(function(data){
+				$scope.resetUser();
+				$scope.listUsers();
+				$scope.message=user.name+ " is added successfully !";
+		})
+			}
+			
 		};
+		$scope.editUser= function(user){
+				$scope.user=user;
+				$scope.update=true;
+		}
 
 		$scope.deleteUser = function(id){
 			console.log(id);
 			profileService.deleteUser(id).then(function(data){
 				$scope.listUsers();
-
+                $scope.message=user.name+ " is deleted successfully !";
 		})
 		};
 		$scope.resetUser =function(){

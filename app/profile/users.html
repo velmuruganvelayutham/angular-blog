@@ -16,7 +16,8 @@
 		<p class="help-block ng-binding"></p>
 	</div>
 	<div id="login">
-		<input type="submit" class="btn btn-success" value= "save">
+		<input type="submit" ng-hide="update"class="btn btn-success" value= "save">
+		<input type="submit" ng-show="update" class="btn btn-success" value= "update">
 		<button type="reset"  class="btn btn-success">Reset</button>
 	</div>
 </form>
@@ -36,7 +37,7 @@
             <tr ng-repeat="user in users">
                 <td> {{user.id}}</td>
                 <td> {{user.name}}</td>
-                <td> <button class="btn btn-success">Edit</button>
+                <td> <button class="btn btn-success" ng-click="editUser(user)" >Edit</button>
 					<button class="btn btn-danger" ng-click="deleteUser(user.id)">Delete</button>
 			 	 </td>
             </tr>
