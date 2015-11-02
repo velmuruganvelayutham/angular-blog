@@ -1,7 +1,7 @@
 
 <div class="container">
 
-<form name="form"  novalidate="" class="form ng-pristine ng-valid">
+<form name="form" ng-submit="addUser(user)" novalidate="" class="form ng-pristine ng-valid">
 	<div class="form-group">
 			<label>ID</label>
 			<input name="id" ng-model="user.id" class="form-control ng-pristine ng-untouched ng-valid">
@@ -16,7 +16,7 @@
 		<p class="help-block ng-binding"></p>
 	</div>
 	<div id="login">
-		<button type="submit" on-click="addUser(user)" class="btn btn-success">save</button>
+		<input type="submit" class="btn btn-success" value= "save">
 		<button type="reset"  class="btn btn-success">Reset</button>
 	</div>
 </form>
@@ -37,7 +37,7 @@
                 <td> {{user.id}}</td>
                 <td> {{user.name}}</td>
                 <td> <button class="btn btn-success">Edit</button>
-					<button class="btn btn-danger">Delete</button>
+					<button class="btn btn-danger" ng-click="deleteUser(user.id)">Delete</button>
 			 	 </td>
             </tr>
            

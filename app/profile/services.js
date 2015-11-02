@@ -16,7 +16,7 @@ angular.module('myApp.profile.services',[]).factory('profileService',['$http',fu
        },
 
        addUser:function(user){
-         var promise = $http({
+         var addPromise = $http({
 			  method: 'POST',
 			  url: 'http://localhost:3000/people',
 			  data:user
@@ -26,13 +26,27 @@ angular.module('myApp.profile.services',[]).factory('profileService',['$http',fu
 			  }, function errorCallback(response) {
 			     alert('error');
 			  });
-			return promise;
+			return addPromise;
+       }
+       ,
+
+       deleteUser:function(id){
+         var deletePromise = $http({
+			  method: 'DELETE',
+			  url: 'http://localhost:3000/people/'+ id
+			}).then(function successCallback(response) {
+				 console.log(JSON.stringify(response.data));
+			     return response.data;
+			  }, function errorCallback(response) {
+			     alert('error');
+			  });
+			return deletePromise;
        }
 
    };
 }]).
 controller('ProfileController',['$scope','profileService', function($scope,profileService){
-
+		$scope.user={};
 		$scope.listUsers = function(){
 			profileService.listUsers().then(function(data){
 			$scope.users=data;
@@ -42,9 +56,21 @@ controller('ProfileController',['$scope','profileService', function($scope,profi
 		$scope.addUser = function(user){
 			console.log(user);
 			profileService.addUser(user).then(function(data){
-			
+				$scope.resetUser();
+				$scope.listUsers();
 		})
 		};
+
+		$scope.deleteUser = function(id){
+			console.log(id);
+			profileService.deleteUser(id).then(function(data){
+				$scope.listUsers();
+
+		})
+		};
+		$scope.resetUser =function(){
+			$scope.user={};
+		}
 		
 		$scope.listUsers();
 
