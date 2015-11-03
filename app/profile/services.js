@@ -87,6 +87,7 @@ controller('ProfileController',['$scope','profileService', function($scope,profi
 			
 		};
 		$scope.editUser= function(user){
+				$scope.message="";
 				$scope.user=user;
 				$scope.update=true;
 		}
@@ -94,12 +95,14 @@ controller('ProfileController',['$scope','profileService', function($scope,profi
 		$scope.deleteUser = function(id){
 			console.log(id);
 			profileService.deleteUser(id).then(function(data){
+				$scope.message= id + " is deleted successfully !";
 				$scope.listUsers();
-                $scope.message=user.name+ " is deleted successfully !";
+              
 		})
 		};
 		$scope.resetUser =function(){
 			$scope.user={};
+			$scope.message="";
 		}
 		
 		$scope.listUsers();
