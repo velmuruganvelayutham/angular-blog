@@ -58,7 +58,7 @@ angular.module('myApp.profile.services',[]).factory('profileService',['$http',fu
 
    };
 }]).
-controller('ProfileController',['$scope','profileService', function($scope,profileService){
+controller('ProfileController',['$scope','profileService','$filter',function($scope,profileService,$filter){
 		$scope.user={};
 		$scope.listUsers = function(){
 			profileService.listUsers().then(function(data){
@@ -68,6 +68,8 @@ controller('ProfileController',['$scope','profileService', function($scope,profi
 	};
 		$scope.addUser = function(user){
 			console.log(user);
+            var upperCaseFilter=$filter('uppercase');
+            user.name=upperCaseFilter(user.name);
 			if($scope.update){
 
 			profileService.updateUser(user).then(function(data){
@@ -107,4 +109,19 @@ controller('ProfileController',['$scope','profileService', function($scope,profi
 		
 		$scope.listUsers();
 
-}]);
+		$scope.$watch('user.id',function(newVal,oldVal){
+			console.log(newVal+ "- -"+ oldVal);
+			if(!newVal)return ;
+			if(newVal.length<3){
+				$scope.message='minimum 3 characters are required!.';
+			}else{
+				$scope.message='';
+			}
+		});
+
+}]).filter('userIdGenerator',function(){
+
+	return function(input){
+		return input.name + '@angular-blog.io';
+	}
+});
