@@ -4,3 +4,8 @@ Todo's
 2. $q and Promise -- resolve and reject
 3. resolve in the routing.
 4. directive -- create a model directive.
+
+
+
+oauth - using passport
+google analytics 
