@@ -3,16 +3,10 @@ angular.module('myApp.profile.services', []).factory('profileService', ['$http',
 
     return {
         listUsers: function() {
-            var promise = $http({
+            return $http({
                 method: 'GET',
                 url: 'http://localhost:3000/people'
-            }).then(function successCallback(response) {
-                console.log(JSON.stringify(response.data));
-                return response.data;
-            }, function errorCallback(response) {
-                alert('error');
             });
-            return promise;
         },
 
         addUser: function(user) {
@@ -60,8 +54,8 @@ angular.module('myApp.profile.services', []).factory('profileService', ['$http',
 controller('ProfileController', ['$scope', '$location', '$rootScope', 'profileService', '$filter', function($scope, $location, $rootScope, profileService, $filter) {
     $scope.user = {};
     $scope.listUsers = function() {
-        profileService.listUsers().then(function(data) {
-            $scope.users = data;
+        profileService.listUsers().then(function(response) {
+            $scope.users = response.data;
             console.log($scope.users);
         })
     };
