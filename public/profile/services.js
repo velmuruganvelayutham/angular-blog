@@ -1,56 +1,57 @@
 'use strict';
-angular.module('myApp.profile.services', []).factory('profileService', ['$http', function($http) {
+angular.module('myApp.profile.services', []).constant('API_URL', 'https://vel-angular-blog.herokuapp.com/people/')
+    .factory('profileService', ['$http', 'API_URL', function($http, API_URL) {
 
-    return {
-        listUsers: function() {
-            return $http({
-                method: 'GET',
-                url: 'http://localhost:3000/people'
-            });
-        },
+        return {
+            listUsers: function() {
+                return $http({
+                    method: 'GET',
+                    url: API_URL
+                });
+            },
 
-        addUser: function(user) {
-            var addPromise = $http({
-                method: 'POST',
-                url: 'http://localhost:3000/people',
-                data: user
-            }).then(function successCallback(response) {
-                console.log(JSON.stringify(response.data));
-                return response.data;
-            }, function errorCallback(response) {
-                alert('error');
-            });
-            return addPromise;
-        },
+            addUser: function(user) {
+                var addPromise = $http({
+                    method: 'POST',
+                    url: API_URL,
+                    data: user
+                }).then(function successCallback(response) {
+                    console.log(JSON.stringify(response.data));
+                    return response.data;
+                }, function errorCallback(response) {
+                    alert('error');
+                });
+                return addPromise;
+            },
 
-        deleteUser: function(id) {
-            var deletePromise = $http({
-                method: 'DELETE',
-                url: 'http://localhost:3000/people/' + id
-            }).then(function successCallback(response) {
-                console.log(JSON.stringify(response.data));
-                return response.data;
-            }, function errorCallback(response) {
-                alert('error');
-            });
-            return deletePromise;
-        },
-        updateUser: function(user) {
-            var updatePromise = $http({
-                method: 'PUT',
-                url: 'http://localhost:3000/people/' + user.id,
-                data: user
-            }).then(function successCallback(response) {
-                console.log(JSON.stringify(response.data));
-                return response.data;
-            }, function errorCallback(response) {
-                alert('error');
-            });
-            return updatePromise;
-        }
+            deleteUser: function(id) {
+                var deletePromise = $http({
+                    method: 'DELETE',
+                    url: API_URL + id
+                }).then(function successCallback(response) {
+                    console.log(JSON.stringify(response.data));
+                    return response.data;
+                }, function errorCallback(response) {
+                    alert('error');
+                });
+                return deletePromise;
+            },
+            updateUser: function(user) {
+                var updatePromise = $http({
+                    method: 'PUT',
+                    url: API_URL + user.id,
+                    data: user
+                }).then(function successCallback(response) {
+                    console.log(JSON.stringify(response.data));
+                    return response.data;
+                }, function errorCallback(response) {
+                    alert('error');
+                });
+                return updatePromise;
+            }
 
-    };
-}]).
+        };
+    }]).
 controller('ProfileController', ['$scope', '$location', '$rootScope', 'profileService', '$filter', function($scope, $location, $rootScope, profileService, $filter) {
     $scope.user = {};
     $scope.listUsers = function() {
