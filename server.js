@@ -9,5 +9,5 @@ server.use(jsonServer.defaults())
 // Returns an Express router
 var router = jsonServer.router('db.json')
 server.use(router)
-
-server.listen(3000 || process.env.PORT)
+console.log(process.env.PORT)
+server.listen(process.env.PORT || 3000)
