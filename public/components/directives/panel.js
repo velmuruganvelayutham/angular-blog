@@ -21,11 +21,16 @@ angular.module('myApp.directive.panel', []).directive('abPanel', function() {
         transclude: true,
         // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
         link: function($scope, iElm, iAttrs, controller) {
+
             $scope.title = iAttrs.abTitle;
+            iElm.on('$destroy',function(){
+                alert('destroyed !');
+            })
             $scope.panelClick = function() {
-                $scope.$broadcast('panelClick', {});
+                $scope.$broadcast('pClick', {});
             }
-            $scope.$on('panelClick', function() {
+            
+            $scope.$on('pClick', function() {
                 alert('Panel is clicked !');
             });
         }
